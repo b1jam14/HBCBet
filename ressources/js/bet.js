@@ -296,7 +296,7 @@ for (const select of scoreSelects) {
     select.appendChild(option);
   }
 }
-/*
+
 // Fill minute select (1 to 120)
 const minuteSelect = document.querySelector('.minute-range');
 for (let i = 0; i <= 50; i++) {
@@ -305,7 +305,7 @@ for (let i = 0; i <= 50; i++) {
   option.textContent = i; //+ "ᵉ minute";
   minuteSelect.appendChild(option);
 }
-*/
+
 document.getElementById('button-bet').addEventListener('click', async function () {
   const scoreteam1 = parseInt(document.getElementById('score-select1').value, 10);
   const scoreteam2 = parseInt(document.getElementById('score-select2').value, 10);
@@ -369,7 +369,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 2️⃣ Update the button text
     document.getElementById('button-team2').textContent = match.get("adversaire");
 
-    updateTeam(match.get("team"));
+    //updateTeam(match.get("team"));
 
     // 3️⃣ Optionally, fetch the user's bet if needed
     const Bets = Parse.Object.extend("Bets");
