@@ -1,0 +1,15 @@
+{
+  "name": "HBCBet",
+  "short_name": "HBCBet",
+  "start_url": "/HBCB/",
+  "scope": "/HBCBet/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/HBCB/favicon.ico",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    }
+  ]
+}
