@@ -67,7 +67,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         const utcHours = String(matchDate.getUTCHours()).padStart(2, '0');
         const utcMinutes = String(matchDate.getUTCMinutes()).padStart(2, '0');
         document.getElementById('time').value = `${utcHours}:${utcMinutes}`;
-    
+        document.getElementById('betQuestion').value = matchInfo.get("betQuestion") || "players_count";
+
         const betwinner = matchInfo.get("betWinner");
 
         const result = await Parse.Cloud.run("getValideNTotalBet", {
@@ -140,6 +141,7 @@ document.getElementById('button-enter-save').addEventListener('click', async (e)
   const adversaire = document.getElementById('adversaire').value;
   const date = document.getElementById('date').value;
   const time = document.getElementById('time').value;
+  const betQuestion = document.getElementById('betQuestion').value;
 
   if (!team || !adversaire || !date || !time) {
     alert('Merci de remplir tous les champs. \n(L\'erreur peut venir de la date)');
@@ -156,6 +158,25 @@ document.getElementById('button-enter-save').addEventListener('click', async (e)
       date,
       time
     });
+
+    // Save betQuestion directly on the Games object
+    const Games = Parse.Object.extend("Games");
+    const query = new Parse.Query(Games);
+    let game;
+
+    if (matchId !== '0') {
+      game = await query.get(matchId);
+    } else {
+      query.equalTo("team", team);
+      query.equalTo("adversaire", adversaire);
+      query.descending("createdAt");
+      game = await query.first();
+    }
+
+    if (game) {
+      game.set("betQuestion", betQuestion);
+      await game.save();
+    }
 
     console.log("Game saved successfully:", result);
     window.location.href = 'admin.html';
